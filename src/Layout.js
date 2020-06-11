@@ -1,13 +1,53 @@
-import React from 'react';
-
+import React, { useEffect, useContext } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import './Layout.css';
 
+/* 
+Context
+*/
+import injectContext from "./Context/appContext";
+import { Context } from "./Context/appContext";
+import appContext from "./Context/appContext";
+import { getState } from "./Context/Flux";
+
+
+/* 
+Componentes a importar
+*/
+
+import {Home} from "./Componentes/view/Home"
+import {MyNav} from "./Componentes/Navbar"
+
+import SignUp from "./Componentes/SignUp"
+
+
+
+
 function Layout() {
+
+  const basename = process.env.BASENAME || "";
+
+
   return (
-    <div className="Layout">
-      <h1>This is my layout</h1> 
+    <div id="root" className="Layout">
+      <BrowserRouter basename={basename}>
+        
+          <MyNav />
+          <div className="wrapper">
+            <Switch>
+              <Route exact path="/" component={Home} />          
+          
+              <Route path="/signup" component={SignUp} />
+              <Route render={() => <h1>Not found!</h1>} />
+            </Switch>
+          </div>
+          
+        
+      </BrowserRouter>  
     </div>
   );
 }
 
-export default Layout;
+export default injectContext(Layout);
