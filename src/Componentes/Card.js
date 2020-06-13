@@ -1,20 +1,87 @@
-import React from 'react';
-import { Card, Button } from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Card, Button, Modal } from "react-bootstrap";
 
 
 export const Tarjeta = () => {
+
+    const [state, setState] = useState({
+        recipe: [],
+        showModal: false,
+        activeModal: null
+    })
+
+    async function fetchrecipe() {
+        const res = await fetch('https://api.spoonacular.com/recipes/random?number=10&apiKey=76f4b82a2b2e4472a887429cc6cc30ed')
+        const translatedrecipe = await res.json()
+        setState({...state, recipe: translatedrecipe.recipes})
+        // validacion aqui 
+        console.log('Api recipe', translatedrecipe)
+    }
+
+    useEffect(() => { fetchrecipe() }, [])
+
     return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-    </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-        </Card>
-    )
+        <>
+            {
+                state.recipe === undefined || state.recipe.length < 1 ? null : (
+                    state.recipe.map((mappedRecipes, i) => (
+                        <div key={i}>
+                            <Card style={{ width: '18rem' }}>
+                                <Card.Img variant="top" src={mappedRecipes.image} />
+                                <Card.Body>
+                                    <h3 id='recipeName'>{mappedRecipes.title}</h3>
+                                    <Button onClick={() => setState({ ...state, showModal: true, activeModal: mappedRecipes})}>
+                                        Recipe Name
+                                    </Button>
+                                    <Card.Text>
+                                        Some quick example text to build on the card title and make up the bulk of
+                                        the card's content.
+                                </Card.Text>
+                                    <Button variant="primary">Go somewhere</Button>
+                                </Card.Body>
+                            </Card>
+                        </div>
+
+                        
+                    )) 
+                )
+            }
+            <>
+                {state.activeModal === null ? null : (
+                    <div id='jumbo-div'>
+                        <Modal size='lg' show={state.showModal} onHide={() => setState({ ...state, showModal: false, activeModal: null })}>
+
+                            <Modal.Header closeButton>
+
+                                <Modal.Title id='pic-title'>
+                                    {state.activeModal.title} Some Recipe Name
+                                </Modal.Title>
+                            </Modal.Header>
+
+                            <Modal.Body id='pic-info'>
+                                <h3>Recipe Image</h3>
+                                <Card.Img src={state.activeModal.image} />
+                                <h5>Ingredients</h5>
+                                <ul>
+                                    <li>2 Onions</li>
+                                    <li>{state.activeModal.ingredients}</li>
+                                </ul>
+
+                                <h5>Instructions</h5>
+                                <ol>
+                                    <li>First instruction</li>
+                                    <li>{state.activeModal.instructions}</li>
+                                </ol>
+                            </Modal.Body>
+                        </Modal>
+                    </div>
+                )
+                
+                }
+                
+            </>
+        </>
+    );
+
 }
 
