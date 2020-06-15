@@ -20,7 +20,7 @@ const SignUp = props => {
             return;
         }
 
-        const resp = await actions.login(state);
+        const resp = await actions.register(state);
         if (resp.status) {
             // eslint-disable-next-line react/prop-types
             props.history.push("/");
@@ -33,6 +33,7 @@ const SignUp = props => {
     const handleChange = e => {
         let value = e.target.value;
         if (e.target.value === "email") value = value.toLowerCase();
+        
     };
 
     return (

@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
 
 
@@ -17,7 +19,8 @@ export const MyNav = () => {
 
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-              
+              <SignIn></SignIn>
+              <SignUp></SignUp>
                 
             </Navbar.Collapse>
         </Navbar>
