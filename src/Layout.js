@@ -33,7 +33,7 @@ function Layout() {
 
 
   return (
-    <div id="root" className="Layout">
+    <div id="root" className="layout">
       <BrowserRouter basename={basename}>
         
           <MyNav />
