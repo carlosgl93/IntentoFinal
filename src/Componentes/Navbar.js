@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import { LinkContainer } from "react-router-bootstrap";
 
 
 
@@ -12,16 +13,24 @@ import SignUp from "./SignUp";
 
 export const MyNav = () => {
     return (
-        <Navbar className="navbar" collapseOnSelect expand="lg">
-            <Navbar.Brand as={Link} to="/">
-                Please Recipes
-			</Navbar.Brand>
-
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand href="/">Please Recipes</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-              <SignIn></SignIn>
-              <SignUp></SignUp>
-                
+                <Nav className="mr-auto">
+                    <LinkContainer to="/register">
+                    <Nav.Link >
+                        Registrate
+                        
+                    </Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/login">
+                    <Nav.Link >
+                        Iniciar Sesión
+                        
+                    </Nav.Link>
+                    </LinkContainer>
+                </Nav>
             </Navbar.Collapse>
         </Navbar>
     );

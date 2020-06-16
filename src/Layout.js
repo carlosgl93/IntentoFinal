@@ -1,5 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Nav, Navbar, NavItem } from "react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import './Layout.css';
@@ -19,7 +21,7 @@ Componentes a importar
 
 import {Home} from "./Componentes/view/Home"
 import {MyNav} from "./Componentes/Navbar"
-
+import SignIn from "./Componentes/SignIn"
 import SignUp from "./Componentes/SignUp"
 
 
@@ -38,8 +40,8 @@ function Layout() {
           <div className="wrapper">
             <Switch>
               <Route exact path="/" component={Home} />          
-          
-              <Route path="/signup" component={SignUp} />
+              <Route path="/register" component={SignUp} />
+              <Route path="/login" component={SignIn} />
               <Route render={() => <h1>Not found!</h1>} />
             </Switch>
           </div>

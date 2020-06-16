@@ -1,40 +1,34 @@
 import React, { useState, useContext } from "react";
-import { Form, Button } from "react-bootstrap";
-import { handleSubmit, handleChange } from "./SignUp";
-import { Context } from "../Context/appContext";
-// import firebase from "../firebase/config";
-// import { Auth } from "./authContext";
+import ReactDOM from "react-dom";
+import { useForm } from "react-hook-form";
 
-const SignIn = () => {
-    // const { actions } = useContext(Context);
 
-    const [state, setState] = useState({
-        email: "",
-        password: ""
-    });
+const SignIn = props => {
+
+
+    const { register, handleSubmit, errors } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+    }
 
     return (
-        <div>
-            <Form onSubmit={handleSubmit}>
-                <h5>Sign In</h5>
-                <Form.Group controlId="email">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control placeholder="Enter email" onChange={handleChange} />
-                    <Form.Text className="text-muted">We ll never share your email with anyone else.</Form.Text>
-                </Form.Group>
+        <form className="registerForm" onSubmit={handleSubmit(onSubmit)}>
+            <h1>Iniciar Sesión</h1>
 
-                <Form.Group controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control placeholder="Password" onChange={handleChange} />
-                </Form.Group>
-                <Form.Group controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Login
-				</Button>
-            </Form>
-        </div>
+            <label>Email*</label>
+            <br></br>
+
+            <input name="email" ref={register({ required: true })} />
+            <br></br>
+            {errors.email && <p>Este campo es requerido</p>}
+            <label>Nombre de usuario*</label>
+            <br></br>
+
+            <input name="password" ref={register({ required: true })} />
+            {errors.password && <p>Este campo es requerido</p>}
+
+            <input type="submit" />
+        </form>
     );
 };
 
