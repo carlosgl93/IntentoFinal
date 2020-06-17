@@ -5,7 +5,7 @@ import Search from "../Search";
 
 export const Home = () => {
     return (
-        <div>
+        <div className= "container-fluid">
             <div className="row">
                 <div className="col-4">
                     <Sidebar></Sidebar>

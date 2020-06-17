@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Modal } from "react-bootstrap";
+import { Card, Button, Modal, Row, Col } from "react-bootstrap";
 
 
 export const Tarjeta = () => {
@@ -13,7 +13,7 @@ export const Tarjeta = () => {
     async function fetchrecipe() {
         const res = await fetch('https://api.spoonacular.com/recipes/random?number=10&apiKey=76f4b82a2b2e4472a887429cc6cc30ed')
         const translatedrecipe = await res.json()
-        setState({...state, recipe: translatedrecipe.recipes})
+        setState({ ...state, recipe: translatedrecipe.recipes })
         // validacion aqui 
         console.log('Api recipe', translatedrecipe)
     }
@@ -22,32 +22,50 @@ export const Tarjeta = () => {
 
     return (
         <>
-            {
-                state.recipe === undefined || state.recipe.length < 1 ? null : (
-                    state.recipe.map((mappedRecipes, i) => (
-                        <div key={i}>
-                            <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={mappedRecipes.image} />
-                                <Card.Body>
-                                    <h3 id='recipeName'>{mappedRecipes.title}</h3>
-                                    <Button onClick={() => setState({ ...state, showModal: true, activeModal: mappedRecipes})}>
-                                        Recipe Name
-                                    </Button>
-                                    <Card.Text>
-                                        Some quick example text to build on the card title and make up the bulk of
-                                        the card's content.
-                                </Card.Text>
-                                    <Button variant="primary">Go somewhere</Button>
-                                </Card.Body>
-                            </Card>
-                        </div>
+            <Row>
+                {
+                    state.recipe === undefined || state.recipe.length < 1 ? null : (
+                        state.recipe.map((mappedRecipes, i) =>{ 
+                            console.log(mappedRecipes.image)
+                            return (
+                            <Col md={4} sm={6} key={i}>
+                                <Card style={{ width: '18rem' }}>
+                                    {
+                                        mappedRecipes.image !== undefined ?
+                                            (
+                                                <Card.Img variant="top" src={mappedRecipes.image} />
+                                            )
+                                            :
+                                            (
+                                                <Card.Img variant="top" src="https://via.placeholder.com/556x370" />
+                                            )
 
-                        
-                    )) 
-                )
-            }
-            <>
-                {state.activeModal === null ? null : (
+
+                                    }
+
+                                    <Card.Body>
+                                        <h3 id='recipeName'>{mappedRecipes.title}</h3>
+                                        <Button onClick={() => setState({ ...state, showModal: true, activeModal: mappedRecipes })}>
+                                            Recipe Name
+                                    </Button>
+                                        <Card.Text>
+                                            Some quick example text to build on the card title and make up the bulk of
+                                            the card's content.
+                                </Card.Text>
+                                        <Button variant="primary">Go somewhere</Button>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+
+
+
+                        )})
+                    )
+                }
+            </Row>
+
+            {
+                state.activeModal === null ? null : (
                     <div id='jumbo-div'>
                         <Modal size='lg' show={state.showModal} onHide={() => setState({ ...state, showModal: false, activeModal: null })}>
 
@@ -76,11 +94,11 @@ export const Tarjeta = () => {
                         </Modal>
                     </div>
                 )
-                
-                }
-                
-            </>
+
+            }
+
         </>
+
     );
 
 }
