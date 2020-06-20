@@ -23,6 +23,7 @@ export const Tarjeta = () => {
 
     useEffect(() => { fetchrecipe() }, [])
 
+
     return (
         <>
             {
@@ -76,9 +77,9 @@ export const Tarjeta = () => {
 
                                 <h5>Instructions</h5>
                                 
-                                    
-                                    <p>{state.activeModal.instructions}</p>
-                                
+                                    <div>
+                                        {state.activeModal.instructions}
+                                    </div>
                             </Modal.Body>
                         </Modal>
                     </div>
