@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Modal } from "react-bootstrap";
 
+const Api_Key = process.env.REACT_APP_APIKEY || "";
 
 export const Tarjeta = () => {
 
@@ -10,8 +11,10 @@ export const Tarjeta = () => {
         activeModal: null
     })
 
+    
+
     async function fetchrecipe() {
-        const res = await fetch('https://api.spoonacular.com/recipes/random?number=10&apiKey=76f4b82a2b2e4472a887429cc6cc30ed')
+        const res = await fetch(`https://api.spoonacular.com/recipes/random?number=9&apiKey=${Api_Key}`)
         const translatedrecipe = await res.json()
         setState({...state, recipe: translatedrecipe.recipes})
         // validacion aqui 
@@ -30,14 +33,13 @@ export const Tarjeta = () => {
                                 <Card.Img variant="top" src={mappedRecipes.image} />
                                 <Card.Body>
                                     <h3 id='recipeName'>{mappedRecipes.title}</h3>
-                                    <Button onClick={() => setState({ ...state, showModal: true, activeModal: mappedRecipes})}>
-                                        Recipe Name
-                                    </Button>
+                                    
                                     <Card.Text>
-                                        Some quick example text to build on the card title and make up the bulk of
-                                        the card's content.
+                                       Tiempo de preparación: {mappedRecipes.readyInMinutes}
                                 </Card.Text>
-                                    <Button variant="primary">Go somewhere</Button>
+                                    <Button onClick={() => setState({ ...state, showModal: true, activeModal: mappedRecipes })}>
+                                        Ver receta completa 
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         </div>
@@ -54,24 +56,29 @@ export const Tarjeta = () => {
                             <Modal.Header closeButton>
 
                                 <Modal.Title id='pic-title'>
-                                    {state.activeModal.title} Some Recipe Name
+                                    {state.activeModal.title}
                                 </Modal.Title>
                             </Modal.Header>
 
                             <Modal.Body id='pic-info'>
-                                <h3>Recipe Image</h3>
+                                
                                 <Card.Img src={state.activeModal.image} />
                                 <h5>Ingredients</h5>
                                 <ul>
-                                    <li>2 Onions</li>
-                                    <li>{state.activeModal.ingredients}</li>
+                                    {state.activeModal.extendedIngredients.map((mappedIngredients, i) => (
+                                        <li key={i}>
+                                            {mappedIngredients.name}
+                                            
+                                        </li>
+                                    ))}
+                                    
                                 </ul>
 
                                 <h5>Instructions</h5>
-                                <ol>
-                                    <li>First instruction</li>
-                                    <li>{state.activeModal.instructions}</li>
-                                </ol>
+                                
+                                    
+                                    <p>{state.activeModal.instructions}</p>
+                                
                             </Modal.Body>
                         </Modal>
                     </div>

@@ -4,17 +4,14 @@ import "../css/grid.css"
 
 export const Grid = () => {
     return (
-        <div className="grid">
+        <div className="grid col-8">
             <div>
                 <h1>Recetas</h1>
                 {/* aqui va el fetch */}
-                <button>
-                    Buscar Recetas
-                </button>
+                
             </div>
-            <div>
+            <div className="cardGrid">
                 <Tarjeta>
-
                 </Tarjeta>
             </div>
 

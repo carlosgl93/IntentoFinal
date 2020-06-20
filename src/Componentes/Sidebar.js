@@ -1,5 +1,6 @@
 import React from 'react';
 import "../css/sidebar.css";
+import Search from "./Search";
 
 
 export const Sidebar = () => {
@@ -9,6 +10,7 @@ export const Sidebar = () => {
             <h3>Descubre las recetas que puedes hacer con lo que tienes
             en tu refrigerador o despensa.
             </h3>
+            <Search></Search>
         </div>
     )
 }
