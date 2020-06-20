@@ -39,11 +39,20 @@
 
 .row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 0.3fr 1fr;
 }
 
 .registerForm {
   display: grid;
   grid-template-columns: 1fr;
   margin: 0 5vw;
+<<<<<<< HEAD
 } */
+=======
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+>>>>>>> fe6ad255d07a30af0d3a3ce1769e146fa3eed9b3

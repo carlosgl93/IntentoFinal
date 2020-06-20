@@ -1,16 +1,16 @@
 import React from 'react';
 import { Sidebar } from "../Sidebar";
 import { Grid } from "../Grid";
-import Search from "../Search";
+
 
 export const Home = () => {
     return (
         <div className= "container-fluid">
             <div className="row">
-                <div className="col-4">
+                <div>
                     <Sidebar></Sidebar>
                 </div>
-                <div className="col-8">
+                <div>
                     <Grid></Grid>
                 </div>
             </div>
